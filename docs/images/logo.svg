@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="8 38 380 136">
+  <!-- RratSoft: la rata de una sola línea (mismo trazo que la intro) -->
+  <path d="M18 158
+    C40 176 92 178 128 146
+    C150 126 160 78 208 72
+    C236 70 252 76 262 84
+    C254 62 266 46 280 50
+    C296 54 296 74 282 78
+    C290 76 300 78 310 86
+    C326 96 344 104 356 112
+    C360 115 356 120 350 120
+    C336 122 318 124 302 124
+    C296 134 294 148 296 160
+    C300 163 310 163 318 164
+    C306 166 292 166 286 160
+    C272 148 236 150 210 156
+    C200 136 166 128 152 148
+    C146 158 154 164 172 164
+    L300 164" fill="none" stroke="#e9ece8" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="300" cy="92" r="9" fill="#9dff3a"/>
+</svg>

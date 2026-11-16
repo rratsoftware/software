@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400">
+  <!-- Imagen de ejemplo: reemplazar por captura real del proyecto -->
+  <rect width="640" height="400" fill="#111317"/>
+  <rect x="40" y="40" width="560" height="320" rx="14" fill="#0d0f12" stroke="#23272e"/>
+  <g font-family="monospace" font-size="18">
+    <text x="70" y="90" fill="#8b929b">$ rrat deploy --env produccion</text>
+    <text x="70" y="126" fill="#9dff3a">✔ build completado en 4.2s</text>
+    <text x="70" y="158" fill="#9dff3a">✔ tests: 248 pasaron</text>
+    <text x="70" y="190" fill="#3af0ff">→ subiendo a la nube…</text>
+    <text x="70" y="222" fill="#9dff3a">✔ api.cliente.com en línea</text>
+    <text x="70" y="270" fill="#8b929b">latencia p95</text>
+    <text x="70" y="300" fill="#e9ece8">38 ms</text>
+  </g>
+  <rect x="300" y="262" width="270" height="12" rx="6" fill="#1b1f25"/>
+  <rect x="300" y="262" width="210" height="12" rx="6" fill="#9dff3a"/>
+  <rect x="300" y="290" width="270" height="12" rx="6" fill="#1b1f25"/>
+  <rect x="300" y="290" width="120" height="12" rx="6" fill="#3af0ff"/>
+</svg>

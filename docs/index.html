@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RratSoft — Software a medida</title>
+  <meta name="description" content="RratSoft es un estudio de software: desarrollo web, apps móviles, sistemas a medida y automatización.">
+  <meta name="theme-color" content="#0a0b0d">
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@400;500;600;700&display=swap">
+  <!-- Íconos (Tabler Icons) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/loader.css">
+  <link rel="stylesheet" href="css/sections.css">
+</head>
+<body class="is-loading">
+
+  <!-- ===== Intro de carga: rata de una sola línea ===== -->
+  <div id="loader" class="loader" role="status" aria-label="Cargando RratSoft">
+    <img class="loader__art" src="images/rrat-line.svg" alt="" width="400" height="200">
+    <div class="loader__ui">
+      <p class="loader__brand">RRAT<span>SOFT</span></p>
+      <div class="loader__track"><div id="loader-bar" class="loader__bar"></div></div>
+      <div class="loader__meta">
+        <span id="loader-status">Inicializando</span>
+        <span id="loader-pct">0%</span>
+      </div>
+    </div>
+    <button id="loader-skip" class="loader__skip" type="button" hidden>Saltar</button>
+    <button id="admin-open" class="loader__admin" type="button" hidden>
+      <i class="ti ti-lock" aria-hidden="true"></i> Acceso administrativo
+    </button>
+  </div>
+
+  <!-- ===== Ventana de PIN (modo mantenimiento) ===== -->
+  <dialog id="admin-dialog" class="pin" aria-labelledby="pin-title">
+    <form id="pin-form" class="pin__form" novalidate>
+      <span class="pin__icon"><i class="ti ti-shield-lock" aria-hidden="true"></i></span>
+      <h2 id="pin-title" class="pin__title">Acceso administrativo</h2>
+      <p class="pin__hint">El sitio está en mantenimiento. Ingresa el PIN para entrar.</p>
+      <div class="pin__digits" id="pin-digits">
+        <input type="password" inputmode="numeric" maxlength="1" autocomplete="off" aria-label="Dígito 1">
+        <input type="password" inputmode="numeric" maxlength="1" autocomplete="off" aria-label="Dígito 2">
+        <input type="password" inputmode="numeric" maxlength="1" autocomplete="off" aria-label="Dígito 3">
+        <input type="password" inputmode="numeric" maxlength="1" autocomplete="off" aria-label="Dígito 4">
+      </div>
+      <p class="pin__msg" id="pin-msg" aria-live="polite"></p>
+      <div class="pin__actions">
+        <button class="btn btn--ghost" type="button" id="pin-cancel">Cancelar</button>
+        <button class="btn" type="submit" id="pin-submit">Entrar <i class="ti ti-arrow-right" aria-hidden="true"></i></button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Aquí se inserta el contenido después de ingresar el PIN (contenido.json) -->
+  <div id="app"></div>
+
+  <script src="js/loader.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /contenido.json
+
+Sitemap: https://rratsoft.org/sitemap.xml

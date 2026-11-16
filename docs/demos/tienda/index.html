@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="es-PE">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Horno Luna — Demo de tienda online · RratSoft</title>
+  <meta name="description" content="Demo de tienda online con carrito y pedido por WhatsApp para negocios en Perú, creada por RratSoft.">
+  <meta name="theme-color" content="#f6efe4">
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+
+  <link rel="stylesheet" href="css/tienda.css">
+</head>
+<body>
+
+  <!-- Aviso de demo -->
+  <div class="demo-bar">
+    <p><i class="ti ti-sparkles" aria-hidden="true"></i> Demo creada por <b>RratSoft</b>. Prueba agregar productos y hacer un pedido.</p>
+    <a href="../../#contacto">Quiero una tienda así <i class="ti ti-arrow-right" aria-hidden="true"></i></a>
+  </div>
+
+  <!-- Cabecera -->
+  <header class="top">
+    <div class="wrap top__inner">
+      <a class="logo" href="#">
+        <span class="logo__mark"><i class="ti ti-moon" aria-hidden="true"></i></span>
+        <span>Horno <em>Luna</em></span>
+      </a>
+      <button class="cart-btn" type="button" id="cart-open" aria-controls="cart" aria-label="Abrir carrito">
+        <i class="ti ti-shopping-bag" aria-hidden="true"></i>
+        <span class="cart-btn__label">Carrito</span>
+        <span class="cart-btn__count" id="cart-count">0</span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- Portada -->
+    <section class="hero">
+      <div class="wrap">
+        <p class="hero__tag"><i class="ti ti-clock" aria-hidden="true"></i> Barranco, Lima · Horneado desde las 6:00 a. m.</p>
+        <h1>Pan calientito, <span>directo a tu casa.</span></h1>
+        <p class="hero__sub">Elige tus productos, arma tu pedido y envíanoslo por WhatsApp. Te lo llevamos en Barranco, Miraflores, Chorrillos y Surco.</p>
+        <ul class="hero__perks">
+          <li><i class="ti ti-brand-whatsapp" aria-hidden="true"></i> Pedido por WhatsApp</li>
+          <li><i class="ti ti-truck-delivery" aria-hidden="true"></i> Delivery gratis desde S/ 60</li>
+          <li><i class="ti ti-building-store" aria-hidden="true"></i> Recojo en tienda</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Catálogo -->
+    <section class="shop" id="catalogo">
+      <div class="wrap">
+        <div class="toolbar">
+          <div class="chips" id="categories" role="tablist" aria-label="Categorías"></div>
+          <label class="search">
+            <i class="ti ti-search" aria-hidden="true"></i>
+            <input type="search" id="search" placeholder="Buscar producto" aria-label="Buscar producto">
+          </label>
+        </div>
+
+        <div class="grid" id="products" aria-live="polite"></div>
+        <p class="empty" id="empty" hidden>No encontramos productos con esa búsqueda.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap foot__inner">
+      <p><b>Horno Luna</b> · Tienda ficticia para demostración.</p>
+      <p>Hecho por <a href="../../">RratSoft</a></p>
+    </div>
+  </footer>
+
+  <!-- Carrito lateral -->
+  <div class="overlay" id="overlay" hidden></div>
+  <aside class="cart" id="cart" aria-label="Carrito" aria-hidden="true">
+    <div class="cart__head">
+      <h2>Tu pedido</h2>
+      <button class="icon" type="button" id="cart-close" aria-label="Cerrar carrito"><i class="ti ti-x"></i></button>
+    </div>
+
+    <div class="cart__body">
+      <ul class="cart__items" id="cart-items"></ul>
+      <div class="cart__empty" id="cart-empty">
+        <i class="ti ti-shopping-bag" aria-hidden="true"></i>
+        <p>Tu carrito está vacío.</p>
+        <button class="btn btn--soft" type="button" id="cart-browse">Ver productos</button>
+      </div>
+
+      <form class="checkout" id="checkout" novalidate hidden>
+        <h3>Entrega</h3>
+        <div class="toggle" role="radiogroup" aria-label="Tipo de entrega">
+          <label><input type="radio" name="entrega" value="delivery" checked><span><i class="ti ti-truck-delivery"></i> Delivery</span></label>
+          <label><input type="radio" name="entrega" value="recojo"><span><i class="ti ti-building-store"></i> Recojo</span></label>
+        </div>
+
+        <label class="field">Nombre
+          <input name="nombre" type="text" autocomplete="name" placeholder="Tu nombre" required>
+        </label>
+        <label class="field" id="field-address">Dirección
+          <input name="direccion" type="text" autocomplete="street-address" placeholder="Calle, número, distrito y referencia" required>
+        </label>
+
+        <h3>Pago</h3>
+        <label class="field">
+          <span class="sr-only">Método de pago</span>
+          <select name="pago">
+            <option>Yape</option>
+            <option>Plin</option>
+            <option>Transferencia (BCP / Interbank)</option>
+            <option>Efectivo al recibir</option>
+            <option>Tarjeta al recibir (POS)</option>
+          </select>
+        </label>
+        <label class="field">Nota (opcional)
+          <textarea name="nota" rows="2" placeholder="Ej.: tocar el intercomunicador, dpto. 302"></textarea>
+        </label>
+      </form>
+    </div>
+
+    <div class="cart__foot" id="cart-foot" hidden>
+      <dl class="totals">
+        <div><dt>Subtotal</dt><dd id="t-sub">S/ 0.00</dd></div>
+        <div><dt>Delivery</dt><dd id="t-ship">S/ 0.00</dd></div>
+        <div class="totals__hint" id="t-hint"></div>
+        <div class="totals__total"><dt>Total</dt><dd id="t-total">S/ 0.00</dd></div>
+      </dl>
+      <button class="btn btn--wa btn--block" type="submit" form="checkout">
+        <i class="ti ti-brand-whatsapp" aria-hidden="true"></i> Revisar y enviar pedido
+      </button>
+    </div>
+  </aside>
+
+  <!-- Vista previa del mensaje -->
+  <dialog class="preview" id="preview" aria-labelledby="preview-title">
+    <div class="preview__inner">
+      <span class="preview__icon"><i class="ti ti-check" aria-hidden="true"></i></span>
+      <h2 id="preview-title">¡Tu pedido está listo!</h2>
+      <p class="preview__sub">Así le llegará el mensaje a la tienda por WhatsApp:</p>
+      <div class="bubble"><pre id="preview-text"></pre></div>
+      <p class="preview__note"><i class="ti ti-info-circle" aria-hidden="true"></i> En esta demo eliges a qué chat enviarlo. En tu tienda llegará directo a tu número.</p>
+      <div class="preview__actions">
+        <button class="btn btn--soft" type="button" id="preview-back">Seguir comprando</button>
+        <a class="btn btn--wa" id="preview-send" href="#" target="_blank" rel="noopener"><i class="ti ti-brand-whatsapp" aria-hidden="true"></i> Abrir WhatsApp</a>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Aviso flotante -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="js/productos.js"></script>
+  <script src="js/tienda.js"></script>
+</body>
+</html>

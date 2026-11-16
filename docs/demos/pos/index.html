@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="es-PE">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RratSoft POS — Demo de punto de venta</title>
+  <meta name="description" content="Demo de sistema de punto de venta para bodegas y minimarkets en Perú: boletas, facturas, IGV, Yape, Plin, caja y reportes.">
+  <meta name="theme-color" content="#121417">
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+
+  <link rel="stylesheet" href="css/pos.css">
+</head>
+<body>
+
+  <!-- Aviso de demo -->
+  <div class="demo-bar">
+    <p><b>Demo de RratSoft POS</b> · Los datos se guardan solo en este navegador.</p>
+    <div class="demo-bar__actions">
+      <button type="button" id="demo-reset"><i class="ti ti-refresh" aria-hidden="true"></i> Reiniciar demo</button>
+      <a href="../../#contacto">Quiero este sistema <i class="ti ti-arrow-right" aria-hidden="true"></i></a>
+    </div>
+  </div>
+
+  <div class="app">
+    <!-- Menú lateral -->
+    <nav class="rail" aria-label="Secciones">
+      <span class="rail__logo" title="RratSoft POS"><img src="images/favicon.svg" alt="RratSoft POS" width="34" height="34"></span>
+      <button class="rail__btn is-on" type="button" data-view="venta"><i class="ti ti-cash-register" aria-hidden="true"></i><span>Venta</span></button>
+      <button class="rail__btn" type="button" data-view="productos"><i class="ti ti-package" aria-hidden="true"></i><span>Productos</span></button>
+      <button class="rail__btn" type="button" data-view="caja"><i class="ti ti-wallet" aria-hidden="true"></i><span>Caja</span></button>
+      <button class="rail__btn" type="button" data-view="reportes"><i class="ti ti-report-analytics" aria-hidden="true"></i><span>Reportes</span></button>
+    </nav>
+
+    <div class="main">
+      <!-- Barra superior -->
+      <header class="bar">
+        <div class="bar__store">
+          <p class="bar__name" id="store-name"></p>
+          <p class="bar__addr" id="store-addr"></p>
+        </div>
+        <div class="bar__meta">
+          <span class="status" id="caja-status"></span>
+          <span class="bar__clock" id="clock"></span>
+          <span class="bar__user"><i class="ti ti-user-circle" aria-hidden="true"></i><span id="cashier"></span></span>
+        </div>
+      </header>
+
+      <!-- ===== Venta ===== -->
+      <section class="view view--venta is-on" data-panel="venta" aria-label="Venta">
+        <div class="catalog">
+          <div class="catalog__top">
+            <label class="search">
+              <i class="ti ti-barcode" aria-hidden="true"></i>
+              <input type="search" id="sale-search" placeholder="Escanea o busca por nombre o código" autocomplete="off" aria-label="Buscar producto o escanear código">
+              <kbd>F2</kbd>
+            </label>
+            <button class="btn btn--scan" type="button" id="scan-camera"><i class="ti ti-scan" aria-hidden="true"></i><span>Escanear con cámara</span></button>
+            <button class="btn btn--light btn--sim" type="button" id="scan-sim" title="Prueba cómo funciona un lector de códigos"><i class="ti ti-barcode" aria-hidden="true"></i><span>Simular escaneo</span></button>
+          </div>
+          <p class="scan-hint"><i class="ti ti-info-circle" aria-hidden="true"></i> Con un lector de códigos (USB o Bluetooth) solo escaneas el producto y se agrega solo. Sin lector, toca un producto o usa la cámara.</p>
+          <div class="chips" id="sale-cats" role="tablist" aria-label="Categorías"></div>
+          <div class="pgrid" id="sale-grid"></div>
+          <p class="muted-empty" id="sale-empty" hidden>Sin resultados. Prueba con otro nombre o código.</p>
+        </div>
+
+        <aside class="ticket" id="ticket" aria-label="Venta actual">
+          <div class="ticket__head">
+            <h2>Venta actual</h2>
+            <button class="link-btn" type="button" id="ticket-clear">Vaciar</button>
+            <button class="icon-btn ticket__close" type="button" id="ticket-close" aria-label="Cerrar ticket"><i class="ti ti-x"></i></button>
+          </div>
+
+          <div class="seg" role="radiogroup" aria-label="Tipo de comprobante" id="doc-type">
+            <label><input type="radio" name="doc" value="boleta" checked><span>Boleta</span></label>
+            <label><input type="radio" name="doc" value="factura"><span>Factura</span></label>
+            <label><input type="radio" name="doc" value="nota"><span>Nota de venta</span></label>
+          </div>
+
+          <div class="client" id="client">
+            <label class="field field--doc">
+              <span id="client-doc-label">DNI (opcional)</span>
+              <input id="client-doc" inputmode="numeric" maxlength="11" autocomplete="off" placeholder="8 dígitos">
+            </label>
+            <label class="field">
+              <span id="client-name-label">Cliente</span>
+              <input id="client-name" autocomplete="off" placeholder="Clientes varios">
+            </label>
+          </div>
+
+          <ul class="lines" id="ticket-lines"></ul>
+          <div class="ticket__empty" id="ticket-empty">
+            <i class="ti ti-shopping-cart" aria-hidden="true"></i>
+            <p>Agrega productos con un clic o escaneando su código.</p>
+          </div>
+
+          <div class="ticket__foot">
+            <dl class="sums">
+              <div><dt>Op. gravada</dt><dd id="sum-grav">S/ 0.00</dd></div>
+              <div><dt>IGV 18%</dt><dd id="sum-igv">S/ 0.00</dd></div>
+              <div id="sum-icbper-row" hidden><dt>ICBPER</dt><dd id="sum-icbper">S/ 0.00</dd></div>
+              <div class="sums__total"><dt>Total</dt><dd id="sum-total">S/ 0.00</dd></div>
+            </dl>
+            <button class="btn btn--pay btn--block" type="button" id="pay-open" disabled>
+              <span>Cobrar</span><kbd>F9</kbd>
+            </button>
+          </div>
+        </aside>
+
+        <button class="ticket-fab" type="button" id="ticket-open">
+          <i class="ti ti-receipt" aria-hidden="true"></i>
+          <span id="fab-count">0 productos</span>
+          <b id="fab-total">S/ 0.00</b>
+        </button>
+      </section>
+
+      <!-- ===== Productos ===== -->
+      <section class="view" data-panel="productos" aria-label="Productos" hidden>
+        <div class="view__head">
+          <div>
+            <h1>Productos</h1>
+            <p class="muted" id="prod-summary"></p>
+          </div>
+          <button class="btn btn--dark" type="button" id="prod-new"><i class="ti ti-plus" aria-hidden="true"></i> Nuevo producto</button>
+        </div>
+        <div class="toolbar">
+          <label class="search search--sm">
+            <i class="ti ti-search" aria-hidden="true"></i>
+            <input type="search" id="prod-search" placeholder="Buscar producto o código" aria-label="Buscar producto">
+          </label>
+          <div class="seg seg--inline" role="radiogroup" aria-label="Filtro de stock">
+            <label><input type="radio" name="stockf" value="all" checked><span>Todos</span></label>
+            <label><input type="radio" name="stockf" value="low"><span>Stock bajo <em id="low-count"></em></span></label>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table class="table">
+            <thead>
+              <tr><th>Producto</th><th class="hide-sm">Código</th><th class="hide-sm">Categoría</th><th class="num">Precio</th><th class="num">Stock</th><th><span class="sr-only">Editar</span></th></tr>
+            </thead>
+            <tbody id="prod-rows"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ===== Caja ===== -->
+      <section class="view" data-panel="caja" aria-label="Caja" hidden>
+        <div class="view__head">
+          <div>
+            <h1>Caja del día</h1>
+            <p class="muted" id="caja-info"></p>
+          </div>
+          <button class="btn btn--dark" type="button" id="caja-toggle"></button>
+        </div>
+        <div class="stats" id="caja-stats"></div>
+        <h2 class="subhead">Ventas de hoy</h2>
+        <div class="table-wrap">
+          <table class="table">
+            <thead>
+              <tr><th>Hora</th><th>Comprobante</th><th class="hide-sm">Cliente</th><th>Pago</th><th class="num">Total</th><th><span class="sr-only">Ver</span></th></tr>
+            </thead>
+            <tbody id="sales-rows"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ===== Reportes ===== -->
+      <section class="view" data-panel="reportes" aria-label="Reportes" hidden>
+        <div class="view__head">
+          <div>
+            <h1>Reportes</h1>
+            <p class="muted" id="rep-date"></p>
+          </div>
+        </div>
+        <div class="stats" id="rep-kpis"></div>
+        <div class="rep-grid">
+          <article class="panel panel--wide">
+            <h2>Ventas por hora</h2>
+            <div class="bars" id="rep-hours"></div>
+          </article>
+          <article class="panel">
+            <h2>Medios de pago</h2>
+            <ul class="hbars" id="rep-methods"></ul>
+          </article>
+          <article class="panel">
+            <h2>Más vendidos</h2>
+            <ol class="rank" id="rep-top"></ol>
+          </article>
+          <article class="panel">
+            <h2>Reponer pronto</h2>
+            <ul class="low" id="rep-low"></ul>
+          </article>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- ===== Cobro ===== -->
+  <dialog class="modal" id="pay" aria-labelledby="pay-title">
+    <form class="modal__inner" id="pay-form" novalidate>
+      <div class="modal__head">
+        <h2 id="pay-title">Cobrar</h2>
+        <button class="icon-btn" type="button" data-close aria-label="Cerrar"><i class="ti ti-x"></i></button>
+      </div>
+      <p class="pay__total"><span>Total a cobrar</span><b id="pay-total">S/ 0.00</b></p>
+
+      <div class="methods" role="radiogroup" aria-label="Medio de pago">
+        <label><input type="radio" name="method" value="Efectivo" checked><span><i class="ti ti-cash"></i>Efectivo</span></label>
+        <label><input type="radio" name="method" value="Yape"><span><i class="ti ti-device-mobile"></i>Yape</span></label>
+        <label><input type="radio" name="method" value="Plin"><span><i class="ti ti-device-mobile"></i>Plin</span></label>
+        <label><input type="radio" name="method" value="Tarjeta"><span><i class="ti ti-credit-card"></i>Tarjeta</span></label>
+      </div>
+
+      <div class="cash" id="cash-box">
+        <label class="field">
+          <span>Monto recibido</span>
+          <input id="cash-in" inputmode="decimal" autocomplete="off" placeholder="0.00">
+        </label>
+        <div class="quick" id="cash-quick"></div>
+        <p class="change"><span>Vuelto</span><b id="cash-change">S/ 0.00</b></p>
+      </div>
+      <div class="digital" id="digital-box" hidden>
+        <p id="digital-text"></p>
+        <label class="field">
+          <span id="op-label">N.º de operación (opcional)</span>
+          <input id="op-number" inputmode="numeric" autocomplete="off" placeholder="Ej.: 0045821">
+        </label>
+      </div>
+
+      <p class="form-error" id="pay-error" role="alert"></p>
+      <button class="btn btn--pay btn--block" type="submit" id="pay-confirm">Confirmar venta</button>
+    </form>
+  </dialog>
+
+  <!-- ===== Comprobante ===== -->
+  <dialog class="modal modal--receipt" id="receipt" aria-label="Comprobante">
+    <div class="modal__inner">
+      <div class="receipt-ok" id="receipt-ok">
+        <i class="ti ti-circle-check" aria-hidden="true"></i>
+        <p>Venta registrada</p>
+      </div>
+      <div class="paper" id="paper"></div>
+      <div class="modal__actions">
+        <button class="btn btn--light" type="button" id="receipt-print"><i class="ti ti-printer" aria-hidden="true"></i> Imprimir</button>
+        <button class="btn btn--dark" type="button" data-close id="receipt-next">Nueva venta</button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- ===== Producto (nuevo / editar) ===== -->
+  <dialog class="modal" id="prod-modal" aria-labelledby="prod-title">
+    <form class="modal__inner" id="prod-form" novalidate>
+      <div class="modal__head">
+        <h2 id="prod-title">Nuevo producto</h2>
+        <button class="icon-btn" type="button" data-close aria-label="Cerrar"><i class="ti ti-x"></i></button>
+      </div>
+      <label class="field"><span>Nombre</span><input name="nombre" required placeholder="Ej.: Galletas Soda Field"></label>
+      <div class="field-row">
+        <label class="field"><span>Categoría</span><select name="cat" id="prod-cat"></select></label>
+        <label class="field"><span>Código de barras</span><input name="codigo" inputmode="numeric" placeholder="Opcional"></label>
+      </div>
+      <div class="field-row field-row--3">
+        <label class="field"><span>Precio (S/)</span><input name="precio" inputmode="decimal" required placeholder="0.00"></label>
+        <label class="field"><span>Stock</span><input name="stock" inputmode="numeric" required placeholder="0"></label>
+        <label class="field"><span>Stock mínimo</span><input name="min" inputmode="numeric" placeholder="0"></label>
+      </div>
+      <p class="form-error" id="prod-error" role="alert"></p>
+      <div class="modal__actions">
+        <button class="btn btn--light" type="button" data-close>Cancelar</button>
+        <button class="btn btn--dark" type="submit">Guardar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- ===== Abrir / cerrar caja ===== -->
+  <dialog class="modal" id="caja-modal" aria-labelledby="caja-title">
+    <form class="modal__inner" id="caja-form" novalidate>
+      <div class="modal__head">
+        <h2 id="caja-title"></h2>
+        <button class="icon-btn" type="button" data-close aria-label="Cerrar"><i class="ti ti-x"></i></button>
+      </div>
+      <div id="caja-body"></div>
+      <p class="form-error" id="caja-error" role="alert"></p>
+      <div class="modal__actions">
+        <button class="btn btn--light" type="button" data-close>Cancelar</button>
+        <button class="btn btn--dark" type="submit" id="caja-submit"></button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- ===== Escáner con cámara ===== -->
+  <dialog class="modal modal--scan" id="scanner" aria-labelledby="scan-title">
+    <div class="modal__inner">
+      <div class="modal__head">
+        <h2 id="scan-title">Escanear producto</h2>
+        <button class="icon-btn" type="button" data-close aria-label="Cerrar"><i class="ti ti-x"></i></button>
+      </div>
+      <div class="scanbox" id="scanbox">
+        <video id="scan-video" playsinline muted></video>
+        <span class="scanbox__frame" aria-hidden="true"><span class="scanbox__laser"></span></span>
+      </div>
+      <p class="scan-status" id="scan-status">Apunta la cámara al código de barras.</p>
+      <div class="modal__actions">
+        <button class="btn btn--light" type="button" data-close>Cerrar</button>
+        <button class="btn btn--dark" type="button" id="scan-sim-2"><i class="ti ti-barcode" aria-hidden="true"></i> Simular escaneo</button>
+      </div>
+    </div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="js/datos.js"></script>
+  <script src="js/pos.js"></script>
+</body>
+</html>

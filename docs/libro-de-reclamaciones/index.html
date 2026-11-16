@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="es-PE">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Libro de Reclamaciones — RratSoft</title>
+  <meta name="description" content="Libro de Reclamaciones virtual de RratSoft. Registra tu reclamo o queja y recibe tu constancia al instante.">
+  <link rel="canonical" href="https://rratsoft.org/libro-de-reclamaciones/">
+  <meta name="theme-color" content="#0a0b0d">
+  <link rel="icon" type="image/svg+xml" href="../images/favicon.svg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/legal.css">
+</head>
+<body>
+  <header class="legal-top">
+    <div class="container legal-top__inner">
+      <a class="brand" href="../"><img src="../images/logo.svg" alt="" width="64" height="23"><span>Rrat<b>Soft</b></span></a>
+      <a class="legal-top__back" href="../"><i class="ti ti-arrow-left" aria-hidden="true"></i><span>Volver al inicio</span></a>
+    </div>
+  </header>
+
+  <main class="legal">
+    <div class="container legal__inner">
+      <div class="libro-intro">
+        <div class="libro-head">
+          <span class="libro-head__icon"><i class="ti ti-book-2" aria-hidden="true"></i></span>
+          <h1>Libro de Reclamaciones</h1>
+        </div>
+        <p>Conforme al Código de Protección y Defensa del Consumidor (Ley N.° 29571), ponemos a tu disposición nuestro Libro de Reclamaciones virtual. Al enviar la hoja recibirás una constancia que puedes imprimir o guardar en PDF.</p>
+      </div>
+
+      <section class="sheet" aria-labelledby="sheet-title">
+        <div class="sheet__top">
+          <div>
+            <p id="sheet-title"><strong>Hoja de reclamación</strong> N.° <b id="hoja-num">—</b></p>
+            <p>Fecha: <b id="hoja-fecha">—</b></p>
+          </div>
+          <div>
+            <p><b data-empresa="razonSocial"></b> · RUC <b data-empresa="ruc"></b></p>
+            <p data-empresa="direccion"></p>
+          </div>
+        </div>
+
+        <div class="sheet__body">
+          <form id="libro-form" novalidate>
+            <fieldset class="fieldset">
+              <legend><span>1</span> Identificación del consumidor reclamante</legend>
+              <div class="grid2">
+                <label class="lf span2">Nombres y apellidos<input name="nombre" type="text" autocomplete="name" required></label>
+                <div class="grid3 span2">
+                  <label class="lf">Documento
+                    <select name="tipoDoc" required>
+                      <option value="DNI">DNI</option>
+                      <option value="CE">Carné de extranjería</option>
+                      <option value="Pasaporte">Pasaporte</option>
+                      <option value="RUC">RUC</option>
+                    </select>
+                  </label>
+                  <label class="lf">N.° de documento<input name="numDoc" type="text" inputmode="numeric" autocomplete="off" required></label>
+                  <label class="lf">Teléfono<input name="telefono" type="tel" autocomplete="tel" required></label>
+                </div>
+                <label class="lf span2">Domicilio<input name="domicilio" type="text" autocomplete="street-address" required></label>
+                <label class="lf span2">Correo electrónico <small>(aquí te enviaremos la respuesta)</small><input name="email" type="email" autocomplete="email" required></label>
+                <label class="check check--tight span2">
+                  <input type="checkbox" name="menor" id="menor"> Soy menor de edad
+                </label>
+                <label class="lf span2" id="apoderado-wrap" hidden>Nombre del padre, madre o apoderado<input name="apoderado" type="text"></label>
+              </div>
+            </fieldset>
+
+            <fieldset class="fieldset">
+              <legend><span>2</span> Identificación del bien contratado</legend>
+              <div class="choice" role="radiogroup" aria-label="Tipo de bien">
+                <label><input type="radio" name="bien" value="Servicio" checked><span><b>Servicio</b>Desarrollo, soporte, mantenimiento, etc.</span></label>
+                <label><input type="radio" name="bien" value="Producto"><span><b>Producto</b>Licencia, sistema o bien entregado.</span></label>
+              </div>
+              <div class="grid2 grid--gap-top">
+                <label class="lf">Monto reclamado <small>(opcional)</small><input name="monto" type="text" inputmode="decimal" placeholder="S/ 0.00"></label>
+                <label class="lf">N.° de comprobante o pedido <small>(opcional)</small><input name="comprobante" type="text"></label>
+                <label class="lf span2">Descripción<textarea name="descripcion" rows="3" required placeholder="¿Qué servicio o producto contrataste?"></textarea></label>
+              </div>
+            </fieldset>
+
+            <fieldset class="fieldset">
+              <legend><span>3</span> Detalle de la reclamación y pedido del consumidor</legend>
+              <div class="choice" role="radiogroup" aria-label="Tipo">
+                <label><input type="radio" name="tipo" value="Reclamo" checked><span><b>Reclamo</b>Disconformidad con el producto o servicio contratado.</span></label>
+                <label><input type="radio" name="tipo" value="Queja"><span><b>Queja</b>Malestar por la atención, no relacionado al producto o servicio.</span></label>
+              </div>
+              <div class="grid2 grid--gap-top">
+                <label class="lf span2">Detalle<textarea name="detalle" rows="5" required placeholder="Cuéntanos qué pasó"></textarea></label>
+                <label class="lf span2">Pedido<textarea name="pedido" rows="3" required placeholder="¿Qué solución esperas?"></textarea></label>
+              </div>
+            </fieldset>
+
+            <label class="check">
+              <input type="checkbox" name="acepto" id="acepto" required>
+              <span>Declaro que los datos son verdaderos y acepto la <a href="../privacidad/" target="_blank" rel="noopener">política de privacidad</a> para la atención de mi reclamo o queja.</span>
+            </label>
+
+            <p class="sheet__legal">
+              La formulación del reclamo no impide acudir a otras vías de solución de controversias ni es requisito previo para interponer una denuncia ante el INDECOPI.
+              El proveedor deberá dar respuesta al reclamo o queja en un plazo no mayor a quince (15) días hábiles improrrogables.
+            </p>
+
+            <div class="sheet__actions">
+              <button class="btn" type="submit" id="libro-submit"><i class="ti ti-send" aria-hidden="true"></i> Enviar hoja</button>
+              <p class="sheet__note" id="libro-note" aria-live="polite"></p>
+            </div>
+          </form>
+
+          <!-- Constancia (aparece después de enviar) -->
+          <div class="done" id="libro-done" hidden>
+            <span class="done__badge"><i class="ti ti-circle-check" aria-hidden="true"></i> Hoja registrada</span>
+            <h2>Recibimos tu <span id="done-tipo">reclamo</span></h2>
+            <p id="done-text">Te responderemos al correo indicado en un plazo no mayor a 15 días hábiles. Guarda esta constancia.</p>
+            <dl id="done-list"></dl>
+            <div class="sheet__actions no-print">
+              <button class="btn" type="button" id="libro-print"><i class="ti ti-printer" aria-hidden="true"></i> Imprimir o guardar PDF</button>
+              <a class="btn btn--light" href="./"><i class="ti ti-plus" aria-hidden="true"></i> Nueva hoja</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="legal-foot">
+    <div class="container legal-foot__inner">
+      <p>© RratSoft</p>
+      <nav aria-label="Legal">
+        <a href="../privacidad/">Privacidad</a>
+        <a href="../terminos/">Términos</a>
+        <a href="../libro-de-reclamaciones/">Libro de Reclamaciones</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="../js/empresa.js"></script>
+  <script src="../js/libro.js"></script>
+</body>
+</html>

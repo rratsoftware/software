@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="es-PE">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Paso Lento — Demo de pantallas de menú y promociones · RratSoft</title>
+  <meta name="description" content="Demo de pantallas digitales para restaurantes y tiendas: cambia el menú, los precios y las promociones de tus TVs desde el celular, con horarios automáticos.">
+  <meta name="theme-color" content="#2b1d14">
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+
+  <link rel="stylesheet" href="css/panel.css">
+</head>
+<body>
+
+  <!-- Aviso de demo -->
+  <div class="demo-bar">
+    <p><b>Demo de RratSoft Pantallas</b> · Abre un TV en otra pestaña y cambia algo aquí: se actualiza al instante.</p>
+    <div class="demo-bar__actions">
+      <button type="button" id="demo-reset"><i class="ti ti-refresh" aria-hidden="true"></i> Reiniciar demo</button>
+      <a href="../../#contacto">Quiero este sistema <i class="ti ti-arrow-right" aria-hidden="true"></i></a>
+    </div>
+  </div>
+
+  <header class="top">
+    <div class="top__brand">
+      <span class="top__logo"><i class="ti ti-device-tv" aria-hidden="true"></i></span>
+      <div>
+        <p class="top__name" id="biz-name">Paso Lento</p>
+        <p class="top__sub">Pantallas del local</p>
+      </div>
+    </div>
+    <div class="top__actions">
+      <span class="sync" id="sync"><i class="ti ti-circle-check" aria-hidden="true"></i> <span>Todo sincronizado</span></span>
+      <a class="btn" href="tv.html?p=caja" target="_blank" rel="noopener"><i class="ti ti-external-link" aria-hidden="true"></i> <span>Abrir TV Caja</span></a>
+      <a class="btn btn--dark" href="tv.html?p=salon" target="_blank" rel="noopener"><i class="ti ti-external-link" aria-hidden="true"></i> <span>Abrir TV Salón</span></a>
+    </div>
+  </header>
+
+  <div class="layout">
+    <main class="main">
+      <nav class="tabs" aria-label="Secciones">
+        <button type="button" class="tabs__btn is-on" data-tab="menu"><i class="ti ti-tools-kitchen-2" aria-hidden="true"></i> Menú y precios</button>
+        <button type="button" class="tabs__btn" data-tab="promos"><i class="ti ti-speakerphone" aria-hidden="true"></i> Promociones</button>
+        <button type="button" class="tabs__btn" data-tab="horarios"><i class="ti ti-clock" aria-hidden="true"></i> Horarios</button>
+        <button type="button" class="tabs__btn" data-tab="pantallas"><i class="ti ti-device-tv" aria-hidden="true"></i> Pantallas</button>
+      </nav>
+      <section class="pane" id="pane"></section>
+    </main>
+
+    <aside class="live">
+      <div class="live__head">
+        <h2><span class="dot" aria-hidden="true"></span> En vivo</h2>
+        <div class="seg" id="live-seg">
+          <button type="button" class="seg__btn is-on" data-p="caja">TV Caja</button>
+          <button type="button" class="seg__btn" data-p="salon">TV Salón</button>
+        </div>
+      </div>
+      <div class="live__frame">
+        <iframe id="live-frame" src="tv.html?p=caja&amp;preview=1" title="Vista previa de la pantalla" tabindex="-1"></iframe>
+      </div>
+      <div class="live__clock">
+        <p class="label">Hora del local <small>(para probar los horarios)</small></p>
+        <div class="seg seg--full" id="sim-seg">
+          <button type="button" class="seg__btn" data-h="">Ahora</button>
+          <button type="button" class="seg__btn" data-h="08:00">8:00 a. m.</button>
+          <button type="button" class="seg__btn" data-h="13:00">1:00 p. m.</button>
+          <button type="button" class="seg__btn" data-h="17:30">5:30 p. m.</button>
+        </div>
+        <p class="live__info" id="live-info"></p>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Editar promoción -->
+  <dialog class="modal" id="promo-modal" aria-labelledby="pm-title">
+    <form class="modal__inner" id="promo-form" novalidate>
+      <div class="modal__head">
+        <h2 id="pm-title">Promoción</h2>
+        <button class="icon-btn" type="button" data-close aria-label="Cerrar"><i class="ti ti-x"></i></button>
+      </div>
+      <div class="modal__body">
+        <div class="pm">
+          <div class="pm__fields">
+            <label class="field">Título<input name="titulo" maxlength="32" required></label>
+            <label class="field">Texto<input name="texto" maxlength="60"></label>
+            <div class="row2">
+              <label class="field">Precio (S/)<input name="precio" type="number" min="0" step="0.5"></label>
+              <label class="field">Antes (S/) <small>opcional</small><input name="antes" type="number" min="0" step="0.5"></label>
+            </div>
+            <div class="row2">
+              <label class="field">Desde<input name="desde" type="time" required></label>
+              <label class="field">Hasta<input name="hasta" type="time" required></label>
+            </div>
+            <fieldset class="field days"><legend>Días</legend><div id="pm-days"></div></fieldset>
+            <div class="row2">
+              <label class="field">Imagen<select name="img" id="pm-img"></select></label>
+              <label class="field">Colores<select name="tema" id="pm-tema"></select></label>
+            </div>
+            <label class="field">Segundos en pantalla<input name="seg" type="number" min="3" max="30" step="1"></label>
+          </div>
+          <div class="pm__preview"><p class="label">Así se verá</p><div class="mini" id="pm-mini"></div></div>
+        </div>
+        <p class="form-note" id="pm-note" aria-live="polite"></p>
+      </div>
+      <div class="modal__foot">
+        <button class="btn" type="button" data-close>Cancelar</button>
+        <button class="btn btn--accent" type="submit">Guardar promoción</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="js/datos.js"></script>
+  <script src="js/estado.js"></script>
+  <script src="js/panel.js"></script>
+</body>
+</html>

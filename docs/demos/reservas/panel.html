@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="es-PE">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Panel de citas — Demo de reservas · RratSoft</title>
+  <meta name="description" content="Panel del negocio para ver la agenda del día, confirmar citas y enviar recordatorios. Demo creada por RratSoft.">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#1d1a17">
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=DM+Sans:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+
+  <link rel="stylesheet" href="css/reservas.css">
+</head>
+<body class="panel">
+
+  <div class="demo-bar">
+    <p><b>Demo de RratSoft</b> · Los datos se guardan solo en este navegador.</p>
+    <div class="demo-bar__links">
+      <button type="button" id="reiniciar"><i class="ti ti-refresh" aria-hidden="true"></i> Reiniciar demo</button>
+      <a class="demo-bar__cta" href="../../#contacto">Quiero este sistema <i class="ti ti-arrow-right" aria-hidden="true"></i></a>
+    </div>
+  </div>
+
+  <header class="panel-top">
+    <div class="panel-top__marca">
+      <img src="images/favicon.svg" alt="" width="36" height="36">
+      <div><b id="nombre-negocio">Barbería La Navaja</b><small>Panel del negocio</small></div>
+    </div>
+    <a class="boton boton--claro boton--chico" href="index.html"><i class="ti ti-calendar-plus" aria-hidden="true"></i> <span>Página de reservas</span></a>
+  </header>
+
+  <main class="panel-main">
+    <div class="barra-dia">
+      <div class="barra-dia__nav">
+        <button type="button" class="icono-btn" id="dia-antes" aria-label="Día anterior"><i class="ti ti-chevron-left" aria-hidden="true"></i></button>
+        <button type="button" class="boton boton--claro boton--chico" id="dia-hoy">Hoy</button>
+        <button type="button" class="icono-btn" id="dia-despues" aria-label="Día siguiente"><i class="ti ti-chevron-right" aria-hidden="true"></i></button>
+        <h1 class="barra-dia__fecha" id="fecha"></h1>
+      </div>
+      <button type="button" class="boton boton--chico" id="nueva"><i class="ti ti-plus" aria-hidden="true"></i> Nueva cita</button>
+    </div>
+
+    <ul class="kpis" id="kpis" aria-label="Resumen del día"></ul>
+
+    <div class="leyenda" aria-label="Estados">
+      <span class="est est--confirmada">Confirmada</span>
+      <span class="est est--pendiente">Por confirmar</span>
+      <span class="est est--atendida">Atendida</span>
+      <span class="est est--novino">No vino</span>
+    </div>
+
+    <div class="agenda-scroll">
+      <div class="agenda" id="agenda"></div>
+    </div>
+  </main>
+
+  <!-- Ventana de detalle / nueva cita -->
+  <dialog class="ventana" id="ventana" aria-labelledby="ventana-titulo">
+    <div class="ventana__caja" id="ventana-caja"></div>
+  </dialog>
+
+  <div class="aviso" id="aviso" role="status" hidden></div>
+
+  <script src="js/datos.js"></script>
+  <script src="js/agenda.js"></script>
+  <script src="js/panel.js"></script>
+</body>
+</html>

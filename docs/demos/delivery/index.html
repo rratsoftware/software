@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="es-PE">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Brasa Norte — Demo de panel de delivery · RratSoft</title>
+  <meta name="description" content="Demo de panel de delivery para restaurantes en Perú: pedidos en vivo, cocina, motorizados, mapa de reparto y cobro con Yape, Plin o efectivo.">
+  <meta name="theme-color" content="#16130f">
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+
+  <link rel="stylesheet" href="css/delivery.css">
+</head>
+<body>
+
+  <!-- Aviso de demo -->
+  <div class="demo-bar">
+    <p><b>Demo de RratSoft Delivery</b> · Llegan pedidos de prueba solos. Los datos se guardan solo en este navegador.</p>
+    <div class="demo-bar__actions">
+      <button type="button" id="demo-reset"><i class="ti ti-refresh" aria-hidden="true"></i> Reiniciar demo</button>
+      <a href="../../#contacto">Quiero este sistema <i class="ti ti-arrow-right" aria-hidden="true"></i></a>
+    </div>
+  </div>
+
+  <div class="app">
+    <!-- Barra superior -->
+    <header class="top">
+      <div class="top__brand">
+        <span class="top__logo"><i class="ti ti-flame" aria-hidden="true"></i></span>
+        <div>
+          <p class="top__name" id="store-name">Brasa Norte</p>
+          <p class="top__addr" id="store-addr">Av. Angamos Este 1520, Surquillo</p>
+        </div>
+      </div>
+
+      <nav class="tabs" aria-label="Vistas">
+        <button class="tabs__btn is-on" type="button" data-view="tablero"><i class="ti ti-layout-kanban" aria-hidden="true"></i> Tablero</button>
+        <button class="tabs__btn" type="button" data-view="historial"><i class="ti ti-history" aria-hidden="true"></i> Historial</button>
+      </nav>
+
+      <div class="top__actions">
+        <label class="switch" title="Recibir pedidos de prueba automáticamente">
+          <input type="checkbox" id="sim-toggle" checked>
+          <span class="switch__track"><span class="switch__dot"></span></span>
+          <span class="switch__label">Recibiendo pedidos</span>
+        </label>
+        <span class="top__clock" id="clock">--:--</span>
+        <button class="btn btn--accent" type="button" id="new-order"><i class="ti ti-phone-plus" aria-hidden="true"></i><span>Pedido por teléfono</span></button>
+      </div>
+    </header>
+
+    <!-- Indicadores del día -->
+    <section class="kpis" aria-label="Resumen de hoy">
+      <div class="kpi"><span>Pedidos hoy</span><b id="k-orders">0</b></div>
+      <div class="kpi"><span>Ventas hoy</span><b id="k-sales">S/ 0.00</b></div>
+      <div class="kpi"><span>Ticket promedio</span><b id="k-ticket">S/ 0.00</b></div>
+      <div class="kpi"><span>Tiempo de entrega</span><b id="k-time">— min</b></div>
+      <div class="kpi kpi--live"><span>En camino</span><b id="k-route">0</b></div>
+    </section>
+
+    <!-- ===== Tablero ===== -->
+    <main class="view view--tablero" id="view-tablero">
+      <div class="board" id="board">
+        <section class="col" data-status="nuevo">
+          <header class="col__head"><span class="dot dot--nuevo"></span><h2>Nuevos</h2><b class="col__count">0</b></header>
+          <div class="col__list"></div>
+        </section>
+        <section class="col" data-status="cocina">
+          <header class="col__head"><span class="dot dot--cocina"></span><h2>En cocina</h2><b class="col__count">0</b></header>
+          <div class="col__list"></div>
+        </section>
+        <section class="col" data-status="listo">
+          <header class="col__head"><span class="dot dot--listo"></span><h2>Listos para salir</h2><b class="col__count">0</b></header>
+          <div class="col__list"></div>
+        </section>
+        <section class="col" data-status="camino">
+          <header class="col__head"><span class="dot dot--camino"></span><h2>En camino</h2><b class="col__count">0</b></header>
+          <div class="col__list"></div>
+        </section>
+      </div>
+
+      <aside class="side">
+        <div class="panel">
+          <div class="panel__head">
+            <h2>Mapa de reparto</h2>
+            <span class="panel__hint">Demo acelerada</span>
+          </div>
+          <svg class="map" id="map" viewBox="0 0 400 300" role="img" aria-label="Mapa de reparto con los motorizados en camino">
+            <rect class="map__sea" x="0" y="0" width="34" height="300"/>
+            <text class="map__sea-label" x="14" y="150" transform="rotate(-90 14 150)">Océano Pacífico</text>
+            <path class="map__zone" d="M34 18 L200 18 L192 112 L60 122 Z"/>
+            <path class="map__zone" d="M200 18 L386 18 L386 142 L252 132 L192 112 Z"/>
+            <path class="map__zone" d="M34 122 L60 122 L192 112 L182 222 L34 212 Z"/>
+            <path class="map__zone map__zone--home" d="M192 112 L252 132 L262 204 L182 222 Z"/>
+            <path class="map__zone" d="M252 132 L386 142 L386 292 L232 292 L262 204 Z"/>
+            <path class="map__zone" d="M34 212 L182 222 L232 292 L34 292 Z"/>
+            <g class="map__streets" aria-hidden="true">
+              <path d="M34 70 L386 82"/><path d="M34 168 L386 186"/><path d="M34 252 L386 262"/>
+              <path d="M110 18 L96 292"/><path d="M222 18 L214 292"/><path d="M318 18 L330 292"/>
+              <path d="M60 30 L370 280"/>
+            </g>
+            <g id="map-labels"></g>
+            <g id="map-routes"></g>
+            <g class="map__home" id="map-home">
+              <circle r="11"/>
+              <text y="4">BN</text>
+            </g>
+            <g id="map-riders"></g>
+          </svg>
+        </div>
+
+        <div class="panel">
+          <div class="panel__head">
+            <h2>Motorizados</h2>
+            <span class="panel__hint" id="riders-free">0 disponibles</span>
+          </div>
+          <ul class="riders" id="riders"></ul>
+        </div>
+      </aside>
+    </main>
+
+    <!-- ===== Historial ===== -->
+    <main class="view view--historial" id="view-historial" hidden>
+      <div class="hist-head">
+        <div>
+          <h2>Pedidos de hoy</h2>
+          <p class="muted" id="hist-sub"></p>
+        </div>
+        <label class="select">
+          <span>Estado</span>
+          <select id="hist-filter">
+            <option value="todos">Todos</option>
+            <option value="activos">En proceso</option>
+            <option value="entregado">Entregados</option>
+            <option value="cancelado">Cancelados</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="hist-sums" id="hist-sums"></div>
+
+      <div class="table-wrap">
+        <table class="table">
+          <thead>
+            <tr><th>Pedido</th><th>Hora</th><th>Cliente</th><th>Distrito</th><th class="hide-sm">Canal</th><th class="hide-sm">Pago</th><th class="num">Total</th><th>Estado</th><th class="num hide-sm">Tiempo</th></tr>
+          </thead>
+          <tbody id="hist-body"></tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+
+  <!-- Detalle del pedido -->
+  <dialog class="modal modal--order" id="order-modal" aria-labelledby="om-title">
+    <div class="modal__inner">
+      <div class="modal__head">
+        <div>
+          <h2 id="om-title">Pedido</h2>
+          <p class="muted" id="om-sub"></p>
+        </div>
+        <button class="icon-btn" type="button" data-close aria-label="Cerrar"><i class="ti ti-x"></i></button>
+      </div>
+      <div class="om" id="om-body"></div>
+      <div class="om__actions" id="om-actions"></div>
+    </div>
+  </dialog>
+
+  <!-- Elegir motorizado -->
+  <dialog class="modal modal--sm" id="rider-modal" aria-labelledby="rm-title">
+    <div class="modal__inner">
+      <div class="modal__head">
+        <h2 id="rm-title">¿Quién lleva el pedido?</h2>
+        <button class="icon-btn" type="button" data-close aria-label="Cerrar"><i class="ti ti-x"></i></button>
+      </div>
+      <ul class="pick" id="rider-pick"></ul>
+    </div>
+  </dialog>
+
+  <!-- Nuevo pedido por teléfono -->
+  <dialog class="modal modal--new" id="new-modal" aria-labelledby="nm-title">
+    <form class="modal__inner" id="new-form" novalidate>
+      <div class="modal__head">
+        <h2 id="nm-title">Pedido por teléfono</h2>
+        <button class="icon-btn" type="button" data-close aria-label="Cerrar"><i class="ti ti-x"></i></button>
+      </div>
+      <div class="nf">
+        <div class="nf__menu">
+          <p class="nf__label">Productos</p>
+          <ul class="menu" id="nf-menu"></ul>
+        </div>
+        <div class="nf__data">
+          <label class="field">Cliente<input name="cliente" type="text" required placeholder="Nombre y apellido"></label>
+          <label class="field">Celular<input name="tel" type="tel" inputmode="tel" required placeholder="987 654 321"></label>
+          <label class="field">Distrito<select name="zona" id="nf-zona"></select></label>
+          <label class="field">Dirección<input name="dir" type="text" required placeholder="Calle y número"></label>
+          <label class="field">Referencia <small>(opcional)</small><input name="ref" type="text" placeholder="Frente al parque"></label>
+          <label class="field">Pago
+            <select name="pago" id="nf-pago">
+              <option>Yape</option><option>Plin</option><option>Efectivo</option><option>Tarjeta (POS)</option>
+            </select>
+          </label>
+          <label class="field" id="nf-cash-wrap" hidden>Paga con<input name="paga" type="number" min="0" step="1" placeholder="100"></label>
+          <div class="nf__sum">
+            <p><span>Subtotal</span><b id="nf-sub">S/ 0.00</b></p>
+            <p><span>Delivery</span><b id="nf-fee">S/ 0.00</b></p>
+            <p class="nf__total"><span>Total</span><b id="nf-total">S/ 0.00</b></p>
+          </div>
+          <p class="form-note" id="nf-note" aria-live="polite"></p>
+          <button class="btn btn--accent btn--block" type="submit"><i class="ti ti-check" aria-hidden="true"></i> Registrar pedido</button>
+        </div>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Comanda para imprimir -->
+  <div class="print-area" id="print-area" aria-hidden="true"></div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="js/datos.js"></script>
+  <script src="js/delivery.js"></script>
+</body>
+</html>

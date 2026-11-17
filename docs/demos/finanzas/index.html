@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="es-PE">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Ferretería Los Andes — Demo de finanzas del negocio · RratSoft</title>
+  <meta name="description" content="Demo de app de finanzas para negocios en Perú: caja del día, gastos por categoría, cuentas por cobrar y por pagar, cierre de caja y reporte para el contador. Creada por RratSoft.">
+  <meta name="theme-color" content="#14213d">
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Finanzas">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+
+  <link rel="stylesheet" href="css/finanzas.css">
+</head>
+<body>
+
+  <div class="demo-bar">
+    <p><b>Demo de RratSoft</b> · Negocio y datos ficticios. Lo que registres se guarda solo en este navegador.</p>
+    <div class="demo-bar__links">
+      <button type="button" class="demo-bar__instalar" id="instalar" hidden><i class="ti ti-download" aria-hidden="true"></i> Instalar app</button>
+      <button type="button" id="reiniciar"><i class="ti ti-refresh" aria-hidden="true"></i> Reiniciar demo</button>
+      <a class="demo-bar__cta" href="../../#contacto">Quiero este sistema <i class="ti ti-arrow-right" aria-hidden="true"></i></a>
+    </div>
+  </div>
+
+  <header class="top">
+    <div class="top__fila">
+      <div class="top__marca">
+        <img src="images/favicon.svg" alt="" width="34" height="34">
+        <div><b id="nombre-negocio">Ferretería Los Andes</b><small>Finanzas del negocio</small></div>
+      </div>
+      <nav class="tabs" aria-label="Secciones">
+        <a href="#/resumen" data-vista="resumen"><i class="ti ti-chart-bar" aria-hidden="true"></i><span>Resumen</span></a>
+        <a href="#/movimientos" data-vista="movimientos"><i class="ti ti-list-details" aria-hidden="true"></i><span>Movimientos</span></a>
+        <a href="#/deudas" data-vista="deudas"><i class="ti ti-file-dollar" aria-hidden="true"></i><span>Cobrar y pagar</span></a>
+        <a href="#/caja" data-vista="caja"><i class="ti ti-cash-register" aria-hidden="true"></i><span>Cierre de caja</span></a>
+      </nav>
+      <button type="button" class="btn" id="registrar"><i class="ti ti-plus" aria-hidden="true"></i><span>Registrar</span></button>
+    </div>
+  </header>
+
+  <main class="contenido" id="vista"></main>
+
+  <dialog class="hoja" id="hoja" aria-labelledby="hoja-titulo">
+    <div class="hoja__caja" id="hoja-caja"></div>
+  </dialog>
+
+  <dialog class="hoja" id="ayuda-instalar" aria-labelledby="ayuda-titulo">
+    <div class="hoja__caja">
+      <button type="button" class="hoja__cerrar" data-cerrar-ayuda aria-label="Cerrar"><i class="ti ti-x" aria-hidden="true"></i></button>
+      <h2 id="ayuda-titulo">Instálala en tu celular</h2>
+      <ol class="ayuda" id="ayuda-pasos"></ol>
+      <p class="hoja__sub">Te queda un ícono en la pantalla y se abre como cualquier app, sin la barra del navegador.</p>
+      <button type="button" class="btn btn--bloque" data-cerrar-ayuda>Entendido</button>
+    </div>
+  </dialog>
+
+  <div class="aviso" id="aviso" role="status" hidden></div>
+
+  <script src="js/datos.js"></script>
+  <script src="js/libro.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/instalar.js"></script>
+</body>
+</html>

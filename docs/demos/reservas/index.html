@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="es-PE">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Barbería La Navaja — Demo de reservas y citas · RratSoft</title>
+  <meta name="description" content="Demo de sistema de reservas y citas en línea para barberías, spas, consultorios y canchas en Perú, con adelanto por Yape y recordatorio por WhatsApp. Creada por RratSoft.">
+  <meta name="theme-color" content="#1d1a17">
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=DM+Sans:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+
+  <link rel="stylesheet" href="css/reservas.css">
+</head>
+<body class="cliente">
+
+  <!-- Aviso de demo -->
+  <div class="demo-bar">
+    <p><b>Demo de RratSoft</b> · Reserva una cita y luego mírala en el panel del negocio.</p>
+    <div class="demo-bar__links">
+      <a href="panel.html"><i class="ti ti-layout-dashboard" aria-hidden="true"></i> Ver panel del negocio</a>
+      <a class="demo-bar__cta" href="../../#contacto">Quiero este sistema <i class="ti ti-arrow-right" aria-hidden="true"></i></a>
+    </div>
+  </div>
+
+  <header class="local">
+    <div class="envoltura local__fila">
+      <img src="images/favicon.svg" alt="" width="48" height="48">
+      <div>
+        <h1 class="local__nombre" id="nombre-negocio">Barbería La Navaja</h1>
+        <p class="local__datos"><i class="ti ti-map-pin" aria-hidden="true"></i> <span id="direccion-negocio"></span> · <i class="ti ti-clock" aria-hidden="true"></i> <span id="horario-hoy"></span></p>
+      </div>
+    </div>
+  </header>
+
+  <main class="envoltura reserva">
+    <section class="reserva__caja" aria-labelledby="paso-titulo">
+      <ol class="pasos" id="pasos" aria-label="Pasos de la reserva">
+        <li>Servicio</li><li>Barbero</li><li>Fecha y hora</li><li>Tus datos</li>
+      </ol>
+      <div id="paso" aria-live="polite"></div>
+    </section>
+
+    <aside class="resumen" id="resumen" aria-label="Resumen de tu cita">
+      <h2>Tu cita</h2>
+      <dl id="resumen-lista"></dl>
+      <p class="resumen__nota"><i class="ti ti-brand-whatsapp" aria-hidden="true"></i> Te recordamos tu cita por WhatsApp un día antes y 2 horas antes.</p>
+    </aside>
+  </main>
+
+  <script src="js/datos.js"></script>
+  <script src="js/agenda.js"></script>
+  <script src="js/cliente.js"></script>
+</body>
+</html>

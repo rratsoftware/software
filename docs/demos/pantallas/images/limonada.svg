@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600">
+  <ellipse cx="300" cy="530" rx="150" ry="24" fill="#000" opacity=".18"/>
+  <!-- sorbete -->
+  <path d="M330 40l-40 200" stroke="#ff7a59" stroke-width="22" stroke-linecap="round"/>
+  <path d="M330 40l-40 200" stroke="#fff" stroke-width="22" stroke-dasharray="18 22" stroke-linecap="round" opacity=".6"/>
+  <!-- vaso -->
+  <path d="M170 170h260l-34 330c-2 18-18 30-36 30H240c-18 0-34-12-36-30z" fill="#e8f3d0" opacity=".9"/>
+  <path d="M182 230h236l-28 266c-2 14-14 22-28 22H238c-14 0-26-8-28-22z" fill="#d6ea8a"/>
+  <path d="M200 260c40 14 160 14 200 0" stroke="#eaf5b8" stroke-width="12" stroke-linecap="round" fill="none"/>
+  <!-- hielo / frozen -->
+  <g fill="#f4fadf" opacity=".9">
+    <circle cx="250" cy="330" r="16"/><circle cx="330" cy="300" r="12"/><circle cx="300" cy="380" r="10"/><circle cx="350" cy="420" r="14"/><circle cx="260" cy="440" r="11"/>
+  </g>
+  <!-- borde -->
+  <path d="M164 170h272" stroke="#fff" stroke-width="12" stroke-linecap="round"/>
+  <!-- limón -->
+  <circle cx="420" cy="180" r="74" fill="#c9d86b"/>
+  <circle cx="420" cy="180" r="60" fill="#eef5c4"/>
+  <g stroke="#c9d86b" stroke-width="7" stroke-linecap="round">
+    <path d="M420 124v112M364 180h112M380 140l80 80M460 140l-80 80"/>
+  </g>
+  <!-- hojas de hierbabuena -->
+  <path d="M220 160c-30-50 10-90 60-80-4 50-24 76-60 80z" fill="#6a9a3a"/>
+  <path d="M220 160c10-30 28-52 56-74" stroke="#4c7a28" stroke-width="5" fill="none"/>
+</svg>

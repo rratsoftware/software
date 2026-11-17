@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600">
+  <ellipse cx="300" cy="500" rx="230" ry="34" fill="#000" opacity=".18"/>
+  <ellipse cx="300" cy="476" rx="240" ry="42" fill="#efe6d6"/>
+  <!-- tajada: cara lateral -->
+  <path d="M110 300l330-110v250L110 470z" fill="#4a2616"/>
+  <!-- capas -->
+  <path d="M110 360l330-80v28L110 390z" fill="#c98a4a"/>
+  <path d="M110 420l330-70v26L110 446z" fill="#c98a4a"/>
+  <!-- cara frontal -->
+  <path d="M440 190l60 40v240l-60-30z" fill="#3a1d10"/>
+  <!-- cobertura -->
+  <path d="M110 300l330-110 60 40-330 110z" fill="#5b2f1a"/>
+  <path d="M110 300c20 30 0 50 20 70M190 274c16 24 0 40 16 58M270 248c16 26 0 46 16 64M350 222c14 22 0 38 14 52" stroke="#5b2f1a" stroke-width="18" stroke-linecap="round" fill="none"/>
+  <!-- fresa -->
+  <path d="M330 170c-30-10-40-46-14-66 20-16 54-10 64 14 10 26-14 58-50 52z" fill="#d23a3a"/>
+  <path d="M322 108c10-16 30-20 44-12-6 10-18 18-30 18" fill="#5f9a36"/>
+  <g fill="#ffd9a0"><circle cx="330" cy="132" r="3"/><circle cx="346" cy="148" r="3"/><circle cx="324" cy="154" r="3"/><circle cx="352" cy="124" r="3"/></g>
+  <!-- tenedor -->
+  <path d="M470 300l70-150" stroke="#cfc7b8" stroke-width="12" stroke-linecap="round"/>
+  <path d="M528 168l26-56M512 160l26-56M544 176l26-56" stroke="#cfc7b8" stroke-width="7" stroke-linecap="round"/>
+</svg>

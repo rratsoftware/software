@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600">
+  <ellipse cx="300" cy="470" rx="230" ry="34" fill="#000" opacity=".18"/>
+  <ellipse cx="300" cy="440" rx="235" ry="40" fill="#e9dcc4"/>
+  <!-- pan de abajo -->
+  <path d="M95 380c0-22 18-36 40-36h330c22 0 40 14 40 36v10c0 24-20 40-44 40H139c-24 0-44-16-44-40z" fill="#d68c3c"/>
+  <!-- lechuga -->
+  <path d="M88 350c22-18 40 6 62-10s40 8 62-6 42 8 64-6 42 8 64-6 42 8 64-6 40 6 62-8 38 10 46 22c-10 10-30 6-46 12-24 10-44-6-66 4s-44-4-66 6-44-6-66 4-44-4-66 6-44-6-66 4-46-2-58-6c-8-4-8-10 0-14z" fill="#8bbf4a"/>
+  <!-- relleno -->
+  <path d="M110 318c40-16 340-16 380 0 14 6 14 26 0 30-40 12-340 12-380 0-14-4-14-24 0-30z" fill="#a3442a"/>
+  <path d="M130 312c50-10 290-10 340 0" stroke="#c4613f" stroke-width="10" stroke-linecap="round" fill="none"/>
+  <!-- cebolla -->
+  <path d="M170 300c20-14 44-14 60 2M290 296c22-12 46-10 62 6M400 300c18-10 36-8 50 4" stroke="#f3d2e0" stroke-width="10" stroke-linecap="round" fill="none"/>
+  <!-- pan de arriba -->
+  <path d="M100 290c0-110 90-170 200-170s200 60 200 170c0 14-10 22-24 22H124c-14 0-24-8-24-22z" fill="#e29a46"/>
+  <path d="M130 270c10-80 80-122 170-122" stroke="#f2bd72" stroke-width="18" stroke-linecap="round" fill="none"/>
+  <!-- semillas -->
+  <g fill="#fbe7c2">
+    <ellipse cx="230" cy="190" rx="9" ry="5" transform="rotate(-20 230 190)"/>
+    <ellipse cx="300" cy="170" rx="9" ry="5"/>
+    <ellipse cx="370" cy="190" rx="9" ry="5" transform="rotate(20 370 190)"/>
+    <ellipse cx="260" cy="236" rx="9" ry="5" transform="rotate(-10 260 236)"/>
+    <ellipse cx="340" cy="232" rx="9" ry="5" transform="rotate(12 340 232)"/>
+    <ellipse cx="420" cy="250" rx="9" ry="5" transform="rotate(30 420 250)"/>
+    <ellipse cx="180" cy="250" rx="9" ry="5" transform="rotate(-30 180 250)"/>
+  </g>
+</svg>

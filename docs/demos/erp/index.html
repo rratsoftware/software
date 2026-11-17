@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="es-PE">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Comercial Ayni — Demo de ERP · RratSoft</title>
+  <meta name="description" content="Demo de ERP para empresas en Perú: ventas con factura y boleta, compras, inventario con kárdex, cuentas por cobrar, caja y bancos y reportes.">
+  <meta name="theme-color" content="#18222d">
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+  <link rel="stylesheet" href="css/erp.css">
+</head>
+<body>
+
+  <!-- Aviso de demo -->
+  <div class="demo-bar">
+    <p><b>Demo de RratSoft ERP</b> · Empresa y datos ficticios. Lo que hagas se guarda solo en este navegador.</p>
+    <div class="demo-bar__actions">
+      <button type="button" id="demo-reset"><i class="ti ti-refresh" aria-hidden="true"></i> Reiniciar demo</button>
+      <a href="../../#contacto">Quiero este sistema <i class="ti ti-arrow-right" aria-hidden="true"></i></a>
+    </div>
+  </div>
+
+  <div class="app">
+    <!-- Menú lateral -->
+    <aside class="nav" id="nav">
+      <div class="nav__company">
+        <span class="nav__logo">CA</span>
+        <div>
+          <p class="nav__name" id="co-name">Comercial Ayni</p>
+          <p class="nav__ruc" id="co-ruc">RUC</p>
+        </div>
+      </div>
+
+      <nav class="nav__menu" aria-label="Módulos">
+        <a href="#/inicio" data-mod="inicio"><i class="ti ti-layout-dashboard" aria-hidden="true"></i>Inicio</a>
+        <p class="nav__group">Operaciones</p>
+        <a href="#/ventas" data-mod="ventas"><i class="ti ti-file-invoice" aria-hidden="true"></i>Ventas<b class="nav__count" id="cnt-ventas" hidden></b></a>
+        <a href="#/compras" data-mod="compras"><i class="ti ti-truck-delivery" aria-hidden="true"></i>Compras<b class="nav__count" id="cnt-compras" hidden></b></a>
+        <a href="#/inventario" data-mod="inventario"><i class="ti ti-packages" aria-hidden="true"></i>Inventario<b class="nav__count nav__count--warn" id="cnt-inv" hidden></b></a>
+        <p class="nav__group">Finanzas</p>
+        <a href="#/cobranzas" data-mod="cobranzas"><i class="ti ti-receipt-2" aria-hidden="true"></i>Cuentas por cobrar</a>
+        <a href="#/caja" data-mod="caja"><i class="ti ti-building-bank" aria-hidden="true"></i>Caja y bancos</a>
+        <p class="nav__group">Maestros</p>
+        <a href="#/contactos" data-mod="contactos"><i class="ti ti-address-book" aria-hidden="true"></i>Clientes y proveedores</a>
+        <a href="#/reportes" data-mod="reportes"><i class="ti ti-chart-bar" aria-hidden="true"></i>Reportes</a>
+      </nav>
+
+      <div class="nav__user">
+        <span class="nav__avatar">RM</span>
+        <div>
+          <p>Rosa Medina</p>
+          <span>Administradora</span>
+        </div>
+      </div>
+    </aside>
+    <div class="nav-backdrop" id="nav-backdrop"></div>
+
+    <!-- Contenido -->
+    <div class="main">
+      <header class="bar">
+        <button class="bar__menu" type="button" id="nav-open" aria-label="Abrir menú"><i class="ti ti-menu-2"></i></button>
+        <ol class="crumbs" id="crumbs"></ol>
+        <div class="bar__right">
+          <span class="bar__sync" title="Datos guardados"><i class="ti ti-cloud-check" aria-hidden="true"></i><span>Guardado</span></span>
+          <span class="bar__date" id="bar-date"></span>
+        </div>
+      </header>
+
+      <main class="view" id="view" tabindex="-1"></main>
+    </div>
+  </div>
+
+  <!-- Modal genérico -->
+  <dialog class="modal" id="modal" aria-labelledby="modal-title">
+    <form class="modal__inner" novalidate>
+      <div class="modal__head">
+        <h2 class="modal__title" id="modal-title">Título</h2>
+        <button class="icon-btn" type="button" data-cancel aria-label="Cerrar"><i class="ti ti-x"></i></button>
+      </div>
+      <div class="modal__body"></div>
+      <p class="modal__note" aria-live="polite"></p>
+      <div class="modal__foot">
+        <button class="btn" type="button" data-cancel>Cancelar</button>
+        <button class="btn btn--primary" type="submit" data-ok>Guardar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Documento para imprimir -->
+  <div class="print-area" id="print-area" aria-hidden="true"></div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="js/datos.js"></script>
+  <script src="js/nucleo.js"></script>
+  <script src="js/vistas.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+{
+  "name": "Finanzas — Ferretería Los Andes",
+  "short_name": "Finanzas",
+  "description": "Caja, gastos, cuentas por cobrar y por pagar, y cierre de caja. Demo de RratSoft.",
+  "lang": "es-PE",
+  "id": "./",
+  "start_url": "./#/resumen",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#f4f2ee",
+  "theme_color": "#14213d",
+  "categories": ["finance", "business", "productivity"],
+  "icons": [
+    { "src": "images/icono-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "images/icono-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "images/icono-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Cierre de caja", "url": "./#/caja", "icons": [{ "src": "images/icono-192.png", "sizes": "192x192" }] },
+    { "name": "Movimientos", "url": "./#/movimientos", "icons": [{ "src": "images/icono-192.png", "sizes": "192x192" }] }
+  ]
+}
